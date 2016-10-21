@@ -7,6 +7,7 @@ A library of bash functions.
 
 This page lists the bash functions that I needed while developing bash projects.
 
+bash 4.4 was used
 
 
 How does it work?
@@ -29,6 +30,9 @@ Functions index
 
 - [endsWith](https://github.com/lingtalfi/bash-functions-library#endswith)
 - [getFileExtension](https://github.com/lingtalfi/bash-functions-library#getfileextension)
+- [replace](https://github.com/lingtalfi/bash-functions-library#replace)
+- [strlen](https://github.com/lingtalfi/bash-functions-library#strlen)
+- [substr](https://github.com/lingtalfi/bash-functions-library#substr)
 
 
 
@@ -85,6 +89,66 @@ getFileExtension "fileName.doo.vm" # vm
 
 
 
+replace
+-------------------------
+
+```bash
+# replacedString	replace ( what, byWhat, sourceString )
+function replace {
+	echo "${3/$1/$2}"
+}
+
+replace "food" "pizza" "I love food" # I love pizza
+replace "food" "pizza" "I love cakes" # I love cakes
+```
+
+
+
+
+
+strlen
+-------------
+```bash
+# number    strlen ( string )
+# Returns the length of {string}
+function strlen {
+	echo ${#1} 
+}
+
+strlen "fileName.txt" # 12
+strlen "fi" # 2
+strlen "" # 0
+```
+
+
+
+
+substr
+-------------
+```bash
+# string	substr ( string, offset )
+# string	substr ( string, offset, length )
+# Returns the substring of {string} starting from index {offset} (first char is at 0).
+# If length is not given, the substring will end at the end of the string
+# If length is given, the substring will end when {length} characters are consumed.
+# {offset} can be negative.
+function substr {
+	if [ -n "$3" ]; then
+		echo ${1: $2: $3}
+	else
+		echo ${1: $2}
+	fi
+}
+
+
+substr "123456" "0" # 123456
+substr "123456" "1" # 23456
+substr "123456" "1" "3" # 234
+substr "123456" "1" "30" # 23456
+substr "123456" "10"  # (empty string)
+substr "123456" "-3"  # 456
+substr "123456" "-3" "1" # 4
+```
 
 
 
