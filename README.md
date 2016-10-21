@@ -94,12 +94,16 @@ replace
 
 ```bash
 # replacedString	replace ( what, byWhat, sourceString )
+# note: % symbol are not replaced, unless prefixed with a slash (\%)
 function replace {
 	echo "${3/$1/$2}"
 }
 
 replace "food" "pizza" "I love food" # I love pizza
 replace "food" "pizza" "I love cakes" # I love cakes
+replace "\%s" "burgers" "I love %s" # I love burgers
+replace "%s" "burgers" "I love %s" # I love %burgers
+replace "_s_" "burgers" "I love _s_" # I love burgers
 ```
 
 
