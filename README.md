@@ -89,6 +89,76 @@ getFileExtension "fileName.doo.vm" # vm
 
 
 
+
+getValueFromStore
+-------------------------
+
+```bash
+
+# string 	getValueFromStore ( key, storePath )
+# the store is a file which contains key/value pairs,
+# one per line, using the following format:
+# key=value
+# this function first tries to access the store.
+# if the store is not found, the returned value is ERR_STORE_NOT_FOUND
+# then, if the key is empty or not found, the returned value is empty string
+# if multiple keys are identical, the first one found only will be considered
+# The rare case where a line consist only of a matching key (no value, wrong syntax) is not handled, for performance reasons
+function getValueFromStore {
+	local content
+	if [ -f "$2" ]; then
+		if [ -n "$1" ]; then
+			found="false"
+			# http://www.unix.com/shell-programming-and-scripting/161645-read-file-using-while-loop-not-reading-last-line.html
+			DONE="false"
+			until $DONE; do
+			    read line || DONE=true
+			    if [ "false" = "$found" ]; then
+				    key="$(echo "$line" | cut -d "=" -f 1)"
+				    if [ "$1" = "$key" ]; then
+				    	echo "$line" | cut -d "=" -f 2
+				    	found="true"
+				    fi
+			    fi
+			done < "$2"
+		fi
+	else
+		echo "ERR_STORE_NOT_FOUND"
+	fi
+}
+
+```
+
+Examples shown below use a file named store.txt, which contains the following:
+
+```txt
+key1=value1
+key2=This is value 2
+key-3="This is value 3"
+password1=xaB45
+```
+
+```bash
+getValueFromStore "ali" "./store.txt" # (empty string)
+getValueFromStore "key1" "./store.txt" # value1
+getValueFromStore "key1" "./storeddd.txt" # ERR_STORE_NOT_FOUND
+getValueFromStore "key2" "./store.txt" # This is value 2
+getValueFromStore "key-3" "./store.txt" # "This is value 3"
+getValueFromStore "password1" "./store.txt" # xaB45
+```
+
+
+
+Note:
+the getValueFromStore function was originally created to store passwords in a 
+secured centralized place, so that scripts can access it.
+
+
+
+
+
+
+
 replace
 -------------------------
 
