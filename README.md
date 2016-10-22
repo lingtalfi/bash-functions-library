@@ -30,6 +30,7 @@ Functions index
 
 - [endsWith](https://github.com/lingtalfi/bash-functions-library#endswith)
 - [getFileExtension](https://github.com/lingtalfi/bash-functions-library#getfileextension)
+- [getValueFromStore](https://github.com/lingtalfi/bash-functions-library#getValueFromStore)
 - [replace](https://github.com/lingtalfi/bash-functions-library#replace)
 - [strlen](https://github.com/lingtalfi/bash-functions-library#strlen)
 - [substr](https://github.com/lingtalfi/bash-functions-library#substr)
