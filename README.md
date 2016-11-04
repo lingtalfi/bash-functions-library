@@ -31,6 +31,7 @@ Functions index
 - [endsWith](https://github.com/lingtalfi/bash-functions-library#endswith)
 - [getFileExtension](https://github.com/lingtalfi/bash-functions-library#getfileextension)
 - [getValueFromStore](https://github.com/lingtalfi/bash-functions-library#getValueFromStore)
+- [isMac](https://github.com/lingtalfi/bash-functions-library#ismac)
 - [replace](https://github.com/lingtalfi/bash-functions-library#replace)
 - [strlen](https://github.com/lingtalfi/bash-functions-library#strlen)
 - [substr](https://github.com/lingtalfi/bash-functions-library#substr)
@@ -157,6 +158,23 @@ secured centralized place, so that scripts can access it.
 
 
 
+isMac
+-------------------------
+
+```bash
+# bool 	isMac (  )
+# Whether or not the current machine is a Mac
+function isMac {
+	if [ -d "/Volumes" ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+
+
+isMac # true (if you are on mac)
+```
 
 
 
